@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/reset.css">
+  <link rel="stylesheet" type="text/css" href="css/styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+  <script src="http://www.parsecdn.com/js/parse-1.2.12.min.js"></script>
+  <meta charset=utf-8 />
+  <title>Example</title>
+</head>
+<body ng-app="parseAuth">
+<div id="main">
+    <div ng-hide="currentUser">
+      <form ng-show="scenario == 'Sign up'">
+        <h2>Sign up</h2>
+        Email: <input type="email" ng-model="user.email" /><br />
+        Username: <input type="text" ng-model="user.username" /><br />
+        Password: <input type="password" ng-model="user.password" /><br />
+        <button ng-click="signUp(user)">Sign up</button>
+        or <a href="#" ng-click="scenario='Log in'">Log in</a>
+      </form>
+
+      <form ng-show="scenario == 'Log in'">
+        <h2>Log in</h2>
+        Username: <input type="text" ng-model="user.username" /><br />
+        Password: <input type="password" ng-model="user.password" /><br />
+        <button ng-click="logIn(user)">Log in</button>
+        or <a href="#" ng-click="scenario='Sign up'">Sign up</a>
+      </form>
+    </div>
+
+    <div ng-show="currentUser">
+      <h1>Welcome {{currentUser.get('username')}}</h1>
+      <p> You have been successfully logged in</p>
+      <button ng-click="logOut(user)">Log out</button>
+    </div>
+
+
+    <div class="posts" ng-controller="PostsCtrl">
+      <div ng-if="currentUser">
+        <h3>Make a post</h3>
+        Title: <input type="text" ng-model="newPost.title" /><br/>
+        Body: <input type="text" ng-model="newPost.body" /><br />
+        <button ng-click="createPost(newPost)">Make Post</button>
+        Your pending post is: {{ newPost }}
+      </div>
+      <h3>Posts:</h3>
+      <div class="post" ng-repeat="post in posts">
+        <button class="delete-btn" ng-if="currentUser" ng-click="deletePost(post.id)">Delete</button>
+        <h4>{{ post.attributes.title }}</h4>
+        <p>{{ post.attributes.body }}</p>
+      </div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+  <script src="postsCtrl.js"></script>
+  <script src="post.js"></script>
+</body>
+</html>
+
+
