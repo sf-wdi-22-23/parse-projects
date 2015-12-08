@@ -15,10 +15,10 @@ query.find({
     // Do something with the returned Parse.Object values
     for (var i = 0; i < results.length; i++){ 
       var object = results[i];
-      if ( object.get('stillAlive') === true ) {
-        var temp = ' - Living</li>';
+      if ( object.get('angular') === true ) {
+        var temp = ' - Angular</li>';
       } else {
-        var temp = ' - Deceased</li>';        
+        var temp = ' - Un-Angular</li>';        
       }
       document.getElementById("parse-stuff").innerHTML += '<li>' + object.get('firstName') + " " + object.get('lastName') + temp;
     }
@@ -31,11 +31,11 @@ query.find({
 var addStudent = function(){
     var fname = document.getElementById("first-name").value;
     var lname = document.getElementById("last-name").value;
-    var aliveBool = document.getElementById("alive").checked;
+    var aBool = document.getElementById("angular").checked;
 
     newStudent.set("firstName", fname);
     newStudent.set("lastName", lname);
-    newStudent.set("stillAlive", aliveBool);
+    newStudent.set("angular", aBool);
 
     newStudent.save(null, {
       success: function(newStudent) {
